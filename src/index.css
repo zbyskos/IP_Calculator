@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fffaea;
+  font-family: "Roboto";
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+header {
+  padding: 0.2em;
+  padding-left: 1em;
+  font-size: 2em;
+  color: #5a00a1;
+  border-bottom: 5px solid #5a00a1;
+  font-weight: bold;
+}
+
+.inputPanel {
+  padding: 2em;
+  width: 100%;
+}
+
+.resultPanel {
+  padding: 2em;
+  width: 100%;
+}
+label {
+  margin: 0.2em;
+  display: inline-block;
+}
+input {
+  display: block;
+  font-size: inherit;
+  padding: 0.2em;
+  resize: horizontal;
+  margin: auto;
+}
+
+.inputForm {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 1.5em;
+}
+
+.about {
+}
+
+.results p {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+footer {
+  font-size: 1.5em;
+  padding: 0.5em;
+  text-align: center;
+  background-color: #5a00a1;
+  color: #fffaea;
+  word-wrap: break-word;
+}
+
+@media (max-width: 600px) {
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sepLine {
+    visibility: none;
+  }
+}
