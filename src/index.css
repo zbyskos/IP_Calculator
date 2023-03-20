@@ -55,11 +55,19 @@ select {
   margin: auto;
   text-align: center;
 }
-
+.wrongInput {
+  border: 2px solid red;
+}
+.errorMsg {
+  margin: 0.3em;
+  font-size: 0.7em;
+  color: red;
+}
 .option {
   margin: 100px;
 }
 .calcButton {
+  cursor: pointer;
   background-color: #5a00a1;
   color: #fffaea;
   border: none;

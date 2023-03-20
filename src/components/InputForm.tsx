@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ResultsType } from '../App'
 import calcUtils from '../utils/calculationUtils'
 type params = {
@@ -6,6 +6,8 @@ type params = {
 }
 
 const InputForm = ({ setResult }: params) => {
+    const [inputError, setInputError] = useState(false);
+
     const subnetMaskOptions = [
         "255.255.255.254 /31",
         "255.255.255.252 /30",
@@ -42,33 +44,38 @@ const InputForm = ({ setResult }: params) => {
     ]
 
     const calculateResults = (event: React.FormEvent<HTMLFormElement>) => {
-
         event.preventDefault();
+        const reg = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
         const formData = new FormData(event.target as HTMLFormElement);
         const { ipAddress, subnetMask } = Object.fromEntries(formData.entries()) as { ipAddress: string, subnetMask: string };
+        if (reg.test(ipAddress)) {
+            setInputError(false);
+            const ipAddressArray = new Uint8Array(ipAddress.split(".").map((val) => Number.parseInt(val)));
+            const subnetMaskArray = new Uint8Array(subnetMask.split(".").map((val) => Number.parseInt(val)));
 
-        const ipAddressArray = new Uint8Array(ipAddress.split(".").map((val) => Number.parseInt(val)));
-        const subnetMaskArray = new Uint8Array(subnetMask.split(".").map((val) => Number.parseInt(val)));
+            const networkAddress = calcUtils.calculateNetworkAddress(ipAddressArray, subnetMaskArray);
+            const broadcastAddress = calcUtils.calculateBroadcastAddress(networkAddress, subnetMaskArray);
+            const minHost = calcUtils.getMinHost(networkAddress);
+            const maxHost = calcUtils.getMaxHost(broadcastAddress);
+            const hostsInNetwork = calcUtils.getHostsNumber(ipAddressArray, subnetMaskArray);
 
-        const networkAddress = calcUtils.calculateNetworkAddress(ipAddressArray, subnetMaskArray);
-        const broadcastAddress = calcUtils.calculateBroadcastAddress(networkAddress, subnetMaskArray);
-        const minHost = calcUtils.getMinHost(networkAddress);
-        const maxHost = calcUtils.getMaxHost(broadcastAddress);
-        const hostsInNetwork = calcUtils.getHostsNumber(ipAddressArray, subnetMaskArray);
-
-        setResult({
-            network: networkAddress,
-            broadcast: broadcastAddress,
-            minHost: minHost,
-            maxHost: maxHost,
-            hostsInNetwork: hostsInNetwork
-        })
+            setResult({
+                network: networkAddress,
+                broadcast: broadcastAddress,
+                minHost: minHost,
+                maxHost: maxHost,
+                hostsInNetwork: hostsInNetwork
+            })
+        } else {
+            setInputError(true);
+        }
     }
     return (
         <div className='inputForm'>
             <form onSubmit={(e) => calculateResults(e)}>
                 <label htmlFor='ipAddress'>IP Address: </label>
-                <input name="ipAddress" id="ipAddress" required />
+                <input name="ipAddress" id="ipAddress" required className={inputError ? "wrongInput" : ""} />
+                {inputError && <p className="errorMsg">Wrong IP addres</p>}
                 <label htmlFor='subnetMask'>Subnet Mask:</label>
                 <select name="subnetMask" id="subnetMask" defaultValue="255.255.255.0">
                     {subnetMaskOptions.map((val) => {
