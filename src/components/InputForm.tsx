@@ -74,7 +74,7 @@ const InputForm = ({ setResult }: params) => {
         <div className='inputForm'>
             <form onSubmit={(e) => calculateResults(e)}>
                 <label htmlFor='ipAddress'>IP Address: </label>
-                <input name="ipAddress" id="ipAddress" required className={inputError ? "wrongInput" : ""} />
+                <input name="ipAddress" id="ipAddress" required className={inputError ? "wrongInput" : ""} autoFocus />
                 {inputError && <p className="errorMsg">Wrong IP addres</p>}
                 <label htmlFor='subnetMask'>Subnet Mask:</label>
                 <select name="subnetMask" id="subnetMask" defaultValue="255.255.255.0">

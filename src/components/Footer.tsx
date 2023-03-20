@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
     return (
-        <footer>Zbyszko Cieslinski @https://github.com/zbyskos/IP_Calculator</footer>
+        <footer>Created by @zbyskos <a href="https://github.com/zbyskos/IP_Calculator" target='_blank'>See Code on Github</a></footer>
     )
 }
 
