@@ -46,12 +46,26 @@ label {
   margin: 0.2em;
   display: inline-block;
 }
-input {
+input,
+select {
   display: block;
   font-size: inherit;
   padding: 0.2em;
   resize: horizontal;
   margin: auto;
+  text-align: center;
+}
+
+.option {
+  margin: 100px;
+}
+.calcButton {
+  background-color: #5a00a1;
+  color: #fffaea;
+  border: none;
+  padding: 0.5em;
+  font-size: 1em;
+  margin-top: 1em;
 }
 
 .inputForm {

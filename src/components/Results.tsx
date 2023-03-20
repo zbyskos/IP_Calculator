@@ -1,13 +1,16 @@
 import React from 'react'
-
-const Results = () => {
+import { ResultsType } from '../App'
+type props = {
+    result: ResultsType | undefined
+}
+const Results = ({ result }: props) => {
     return (
         <div className='results'>
-            <p>Network:</p>
-            <p>Broadcast:</p>
-            <p>Min host:</p>
-            <p>Max host:</p>
-            <p>Hosts in Network:</p>
+            <p>Network: {result?.network.toString().replaceAll(",", ".")}</p>
+            <p>Broadcast: {result?.broadcast.toString().replaceAll(",", ".")}</p>
+            <p>Min host: {result?.minHost.toString().replaceAll(",", ".")}</p>
+            <p>Max host: {result?.maxHost.toString().replaceAll(",", ".")}</p>
+            <p>Hosts in Network: {result?.hostsInNetwork}</p>
         </div>
     )
 }
